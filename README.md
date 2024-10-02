@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# React + Vite + Tailwind
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ To run this project, you need the following installed:
    
 2. **Install project dependencies:**
     ```bash
-    cd franchain
+    cd mycubeenergy
     npm install
     ```
 
