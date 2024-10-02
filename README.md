@@ -1,4 +1,4 @@
-# React + Vite + Tailwind
+# MYCUBEENERGY
 
 ## Table of Contents
 
