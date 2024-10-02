@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'TT Commons';
+    src: url('/assets/fonts/TT Commons Medium.otf') format('opentype'),
+        url('/assets/fonts/TT Commons Bold.otf') format('opentype'),
+        url('/assets/fonts/TT Commons Regular.otf') format('opentype'),
+    ;
+    font-style: normal;
+}
+
+body {
+    font-family: 'TT Commons', sans-serif;
+}
