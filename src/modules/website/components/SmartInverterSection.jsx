@@ -17,7 +17,7 @@ const SmartInverterSection = () => {
     <section className="bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Main Heading */}
-        <h2 className="text-6xl font-bold mb-16 text-white capitalize">
+        <h2 className="sm:text-6xl text-4xl font-bold mb-16 text-white capitalize">
           200 African{" "}
           <span className="text-deep-gray">Homes Now have access</span> to
           affordable electricity
