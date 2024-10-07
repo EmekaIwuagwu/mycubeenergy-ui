@@ -1,12 +1,16 @@
 import React from "react";
-import Hero from "../../components/Hero";
-import Header from "../../layouts/Header";
+import { Hero, HowItWorks, SmartInverterSection, WhatWeBuild } from "../../components";
+import { Header, Footer } from "../../layouts";
 
 const Home = () => {
   return (
     <main className="relative">
       <Header />
       <Hero />
+      <HowItWorks />
+      <WhatWeBuild />
+      <SmartInverterSection />
+      <Footer />
     </main>
   );
 };
