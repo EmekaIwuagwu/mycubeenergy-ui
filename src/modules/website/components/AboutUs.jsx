@@ -14,7 +14,7 @@ const AboutUs = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto max-w-5xl">
         {/* Card 1 */}
         <div
-          className={`relative w-full h-[400px] bg-black text-white rounded-[50px] cursor-pointer transform-style-3d transition-transform duration-700 ${
+          className={`relative w-full h-[480px] bg-black text-white rounded-[50px] cursor-pointer transform-style-3d transition-transform duration-700 ${
             flippedCards[0] ? "rotate-y-180" : ""
           }`}
           onClick={() => handleFlip(0)}
@@ -26,14 +26,14 @@ const AboutUs = () => {
               alt="Card 1"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-xl font-bold">
-              Why we Built Mycubeenergy
+            <h2 className="mt-4 text-7xl font-bold">
+              Why we <span className="text-deep-gray">Built Mycubeenergy</span>
             </h2>
           </div>
           {/* Back Side */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
-            <h2 className="text-xl font-bold">Why we Built Mycubeenergy</h2>
-            <p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:py-10 md:px-12 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
+            <h2 className="text-[40px] font-bold  leading-tight">Why we <span className="text-deep-gray">Built Mycubeenergy</span></h2>
+            <p className="text-justify mt-8">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.
@@ -47,28 +47,30 @@ const AboutUs = () => {
 
         {/* Card 2 */}
         <div
-          className={`relative w-full h-[400px] bg-black text-white rounded-[50px] cursor-pointer transform-style-3d transition-transform duration-700 ${
+          className={`relative w-full h-[480px] bg-black text-white rounded-[50px] cursor-pointer transform-style-3d transition-transform duration-700 ${
             flippedCards[1] ? "rotate-y-180" : ""
           }`}
           onClick={() => handleFlip(1)}
         >
           {/* Front Side */}
-          <div className="absolute inset-0 flex flex-col p-4 bg-black rounded-[50px] backface-hidden">
+          <div className="absolute inset-0 flex flex-col py-10 px-8 bg-black rounded-[50px] backface-hidden">
             <img
               src="/assets/icons/support_agent.png"
               alt="Card 2"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-xl font-bold">
-              How our Services are distributed
+            <h2 className="mt-4 text-7xl font-bold">
+              How our{" "}
+              <span className="text-deep-gray"> Services are Distributed</span>
             </h2>
           </div>
           {/* Back Side */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
-            <h2 className="text-xl font-bold">
-              How our Services are distributed
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:py-10 md:px-12 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
+          <h2 className="text-[40px] font-bold leading-tight">
+              How our{" "}
+              <span className="text-deep-gray"> Services are Distributed</span>
             </h2>
-            <p>
+            <p className="text-justify mt-8">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.
@@ -82,24 +84,28 @@ const AboutUs = () => {
 
         {/* Card 3 */}
         <div
-          className={`relative w-full h-[400px] bg-black text-white cursor-pointer rounded-[50px] transform-style-3d transition-transform duration-700 ${
+          className={`relative w-full h-[480px] bg-black text-white cursor-pointer rounded-[50px] transform-style-3d transition-transform duration-700 ${
             flippedCards[2] ? "rotate-y-180" : ""
           }`}
           onClick={() => handleFlip(2)}
         >
           {/* Front Side */}
-          <div className="absolute inset-0 flex flex-col p-4 bg-black rounded-[50px] backface-hidden">
+          <div className="absolute inset-0 flex flex-col py-10 px-8 bg-black rounded-[50px] backface-hidden">
             <img
               src="/assets/icons/communities.png"
               alt="Card 3"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-xl font-bold">our Community</h2>
+            <h2 className="mt-4 text-7xl font-bold">
+              Our <span className="text-deep-gray">Community</span>
+            </h2>
           </div>
           {/* Back Side */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
-            <h2 className="text-xl font-bold">our Community</h2>
-            <p>
+          <div className="absolute inset-0 flex flex-col items-start justify-center p-4 md:py-10 md:px-12 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
+          <h2 className="text-[40px] font-bold">
+              Our <span className="text-deep-gray leading-tight"> Community </span>
+            </h2>
+            <p className="text-justify mt-8">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.

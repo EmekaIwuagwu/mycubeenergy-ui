@@ -1,12 +1,13 @@
-import React from 'react';
-import Header from '../../layouts/Header';
-import AboutUs from '../../components/AboutUs';
+import { Header, Footer } from "../../layouts";
+import { AboutUs, FAQ } from "../../components";
 
 const About = () => {
-  return(
+  return (
     <main className="relative">
       <Header />
       <AboutUs />
+      <FAQ />
+      <Footer />
     </main>
   );
 };
