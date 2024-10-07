@@ -3,7 +3,7 @@ import React from "react";
 const Hero = () => {
   return (
     <section
-      className="min-h-dvh flex flex-col justify-center items-center font-tt-commons text-white pt-12 sm:pt-44 pb-16 px-4"
+      className="min-h-dvh flex flex-col justify-center items-center font-tt-commons text-white pt-12 sm:pt-44 pb-28 px-4"
       style={{
         backgroundImage: "url(/assets/Images/hero.png)",
         backgroundSize: "cover",

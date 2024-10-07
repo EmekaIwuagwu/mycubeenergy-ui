@@ -15,7 +15,6 @@ body {
     font-family: 'TT Commons', sans-serif;
 }
 
-/* Enable 3D transform */
 .transform-style-3d {
     transform-style: preserve-3d;
 }
@@ -32,7 +31,15 @@ body {
     transform: rotateY(180deg);
 }
 
-/* Front and back face of the card */
 .rotate-y-180 {
     transform: rotateY(180deg);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
