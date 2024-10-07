@@ -5,12 +5,12 @@ const Hero = () => {
     <section
       className="min-h-dvh flex flex-col justify-center items-center font-tt-commons text-white pt-12 sm:pt-44 pb-16"
       style={{
-        backgroundImage: "url(/assets/images/hero.png)",
+        backgroundImage: "url(/assets/Images/hero.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-    >
+      >
       <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-center">
         Uninterrupted Power <br /> Unbeatable Prices
       </h1>

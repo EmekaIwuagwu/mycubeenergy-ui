@@ -55,19 +55,19 @@ Contributions, issues, and feature requests are welcome!
     git clone https://github.com/TRIPLE-ADE/mycubeenergy.git
     ```
 
-2. **Fetch the latest `dev` branch from the remote repository (since it's not the default branch):**
+2. **Fetch the latest `main` branch from the remote repository (since it's not the default branch):**
     ```bash
-    git fetch origin dev
+    git fetch origin main
     ```
 
-3. **Create a new branch from the `dev` branch:**
+3. **Create a new branch from the `main` branch:**
     ```bash
-    git checkout -b Feat/{feature-name} origin/dev
+    git checkout -b Feat/{feature-name} origin/main
     ```
 
-4. **Ensure your branch is up to date with the latest `dev` branch:**
+4. **Ensure your branch is up to date with the latest `main` branch:**
     ```bash
-    git pull origin dev
+    git pull origin main
     ```
 
 5. **Make your changes, then add them:**
@@ -82,7 +82,7 @@ Contributions, issues, and feature requests are welcome!
 
 7. **Ensure there are no conflicts:**
     ```bash
-    git pull origin dev
+    git pull origin main
     ```
 
 8. **Push your changes to the new branch:**
@@ -90,17 +90,17 @@ Contributions, issues, and feature requests are welcome!
     git push -u origin Feat/{feature-name}
     ```
 
-9. **Fetch the latest changes from the `dev` branch to stay updated:**
+9. **Fetch the latest changes from the `main` branch to stay updated:**
     ```bash
-    git fetch origin dev
+    git fetch origin main
     ```
 
-10. **Rebase your branch with the latest `dev` branch:**
+10. **Rebase your branch with the latest `main` branch:**
     ```bash
-    git rebase origin/dev
+    git rebase origin/main
     ```
 
-11. **Create a pull request to the `dev` branch (not `main`):**
+11. **Create a pull request to the `main`:**
     - Provide a detailed description of your pull request and reference any relevant issues.
 
 
