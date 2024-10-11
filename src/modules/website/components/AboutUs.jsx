@@ -10,8 +10,8 @@ const AboutUs = () => {
   };
 
   return (
-    <section className="font-tt-commons bg-white pt-12 sm:pt-44 pb-16 mx-4 sm:mx-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto max-w-5xl">
+    <section className="pb-16 mx-4 bg-white font-tt-commons pt-44 sm:mx-10">
+      <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-2">
         {/* Card 1 */}
         <div
           className={`relative w-full h-[480px] bg-black text-white rounded-[50px] cursor-pointer transform-style-3d transition-transform duration-700 ${
@@ -26,14 +26,14 @@ const AboutUs = () => {
               alt="Card 1"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-7xl font-bold">
+            <h2 className="mt-4 text-5xl font-bold md:text-7xl">
               Why we <span className="text-deep-gray">Built Mycubeenergy</span>
             </h2>
           </div>
           {/* Back Side */}
           <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:py-10 md:px-12 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
             <h2 className="text-[40px] font-bold  leading-tight">Why we <span className="text-deep-gray">Built Mycubeenergy</span></h2>
-            <p className="text-justify mt-8">
+            <p className="mt-8 text-justify">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.
@@ -59,7 +59,7 @@ const AboutUs = () => {
               alt="Card 2"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-7xl font-bold">
+           <h2 className="mt-4 text-5xl font-bold md:text-7xl">
               How our{" "}
               <span className="text-deep-gray"> Services are Distributed</span>
             </h2>
@@ -70,7 +70,7 @@ const AboutUs = () => {
               How our{" "}
               <span className="text-deep-gray"> Services are Distributed</span>
             </h2>
-            <p className="text-justify mt-8">
+            <p className="mt-8 text-justify">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.
@@ -96,16 +96,16 @@ const AboutUs = () => {
               alt="Card 3"
               className="w-32 h-32 rounded-t-xl"
             />
-            <h2 className="mt-4 text-7xl font-bold">
+           <h2 className="mt-4 text-5xl font-bold md:text-7xl">
               Our <span className="text-deep-gray">Community</span>
             </h2>
           </div>
           {/* Back Side */}
           <div className="absolute inset-0 flex flex-col items-start justify-center p-4 md:py-10 md:px-12 bg-black rounded-[50px] transform rotate-y-180 backface-hidden">
           <h2 className="text-[40px] font-bold">
-              Our <span className="text-deep-gray leading-tight"> Community </span>
+              Our <span className="leading-tight text-deep-gray"> Community </span>
             </h2>
-            <p className="text-justify mt-8">
+            <p className="mt-8 text-justify">
               Welcome to MyCubeEnergy LLC, an innovative energy company
               registered in Kentucky, USA, with operations in Nigeria, dedicated
               to providing reliable, affordable, and sustainable electricity.
