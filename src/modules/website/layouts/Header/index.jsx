@@ -42,7 +42,7 @@ const Header = () => {
               <Link
                 to="/"
                 className={`px-5 py-1.5 rounded-3xl leading-none ${
-                  !isHomePage ? "bg-light-green" : "bg-white/50"
+                  !isHomePage ? "bg-custom-black/5" : "bg-white/50"
                 }`}
               >
                 Home
