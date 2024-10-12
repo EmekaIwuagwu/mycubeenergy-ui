@@ -13,7 +13,7 @@ const Hero = () => {
     >
       {/* Hero Heading */}
       <h1 className={`${styles.heroHeading} text-3xl sm:text-5xl lg:text-6xl font-bold mb-4 text-center leading-snug sm:leading-tight`}>
-        Uninterrupted Power Supply <br /> Unbeatable Prices
+        Uninterrupted Power <br /> Unbeatable Prices
       </h1>
 
       {/* Subtext */}
