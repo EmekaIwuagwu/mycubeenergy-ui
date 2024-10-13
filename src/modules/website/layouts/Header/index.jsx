@@ -59,7 +59,7 @@ const Header = () => {
         </ul>
         <ul className={styles.navList}>
           <li>
-            <Link to="/signin" className={`px-5 py-1.5 rounded-3xl leading-none ${!isHomePage ? "bg-light-green" : "bg-white/50"}`}>
+            <Link to="/login" className={`px-5 py-1.5 rounded-3xl leading-none ${!isHomePage ? "bg-light-green" : "bg-white/50"}`}>
               Login
             </Link>
           </li>
