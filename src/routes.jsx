@@ -4,12 +4,14 @@ import { Home, About, Login, Dashboard, Transactions, Bills, Settings, SignUp, R
    Topupwallet, Topupunits, AdminLogin, AdminSignup, AdminDashboard, AdminOrder, AdminDashboardOrder,
     AdminBilling, AdminUser, AdminManagement, AdminManagementDetails, AdminSettings} from './modules/website/pages';
 
+
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/login" element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/transactions' element={<Transactions />} />
