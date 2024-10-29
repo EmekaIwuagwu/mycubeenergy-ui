@@ -3,15 +3,43 @@ import Sidebar from '../Sidebar/Sidebar';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
-    const [username, setUsername] = useState('');
+    const [userData, setUserData] = useState(null);
+    const [cashWalletBalance, setCashWalletBalance] = useState(null); // New state for cash wallet balance
+    const email = sessionStorage.getItem('userinfo');
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
-        // Fetch the stored username from localStorage
-        const storedUsername = localStorage.getItem('username');
-        if (storedUsername) {
-            setUsername(storedUsername);
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch(`https://mycubeenergy.onrender.com/api/User/Kyc/profile?email=${email}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                setUserData(data.user); // Set user data
+                setCashWalletBalance(data.cashWalletBalance); // Set cash wallet balance separately
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        if (email && token) {
+            fetchUserData();
         }
-    }, []);
+    }, [email, token]);
+
+    // Function to format number as currency (e.g., NGN)
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('en-NG', {
+            style: 'currency',
+            currency: 'NGN',
+        }).format(value);
+    };
 
     return (
         <div>
@@ -19,20 +47,21 @@ const Dashboard = () => {
             <div className={styles.dashboardContainer}>
                 <div className={styles.dashboardHeader}>
                     <h4>Dashboard</h4>
-                    <p>Welcome Back {username || 'User'}!</p> {/* Display the username */}
+                    <p>Welcome Back {userData ? userData.fullname : 'User'}!</p> {/* Display the user's fullname */}
                 </div>
                 
                 <div className={styles.dashboardCards}>
                     <div className={styles.dashboardCard}>
                         <h4>Units Balance</h4>
-                        <p>75,000</p>
+                        <p>{userData ? userData.unitBalance : 'Loading...'}</p>
                         <div className={styles.flowchartPlaceholder}>
                             Flowchart or Image here
                         </div>
                     </div>
                     <div className={styles.dashboardCard}>
                         <h4>Wallet Balance</h4>
-                        <p>NGN 205,000</p>
+                        {/* Display cash wallet balance formatted as currency */}
+                        <p>{cashWalletBalance !== null ? formatCurrency(cashWalletBalance) : 'Loading...'}</p>
                         <div className={styles.flowchartPlaceholder}>
                             Flowchart or Image here
                         </div>
