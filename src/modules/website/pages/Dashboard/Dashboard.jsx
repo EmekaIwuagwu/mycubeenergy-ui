@@ -5,10 +5,12 @@ import styles from './Dashboard.module.css';
 const Dashboard = () => {
     const [userData, setUserData] = useState(null);
     const [cashWalletBalance, setCashWalletBalance] = useState(null); // New state for cash wallet balance
+    const [transactions, setTransactions] = useState([]); // New state for transactions
     const email = sessionStorage.getItem('userinfo');
     const token = sessionStorage.getItem('token');
 
     useEffect(() => {
+        // Fetch User Data (profile and balance)
         const fetchUserData = async () => {
             try {
                 const response = await fetch(`https://mycubeenergy.onrender.com/api/User/Kyc/profile?email=${email}`, {
@@ -28,8 +30,28 @@ const Dashboard = () => {
             }
         };
 
+        // Fetch Transactions Data
+        const fetchTransactions = async () => {
+            try {
+                const response = await fetch(`https://mycubeenergy.onrender.com/api/User/transactions?email=${email}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                setTransactions(data); // Set transactions data
+            } catch (error) {
+                console.error('Error fetching transactions data:', error);
+            }
+        };
+
         if (email && token) {
             fetchUserData();
+            fetchTransactions();
         }
     }, [email, token]);
 
@@ -39,6 +61,11 @@ const Dashboard = () => {
             style: 'currency',
             currency: 'NGN',
         }).format(value);
+    };
+
+    // Function to format date
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString();
     };
 
     return (
@@ -89,30 +116,20 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Company A</td>
-                                <td>NGN 1,000</td>
-                                <td>Monthly Subscription</td>
-                                <td>2024-08-01</td>
-                            </tr>
-                            <tr>
-                                <td>Company B</td>
-                                <td>NGN 2,500</td>
-                                <td>Utility Payment</td>
-                                <td>2024-08-02</td>
-                            </tr>
-                            <tr>
-                                <td>Company C</td>
-                                <td>NGN 5,000</td>
-                                <td>Service Fee</td>
-                                <td>2024-08-05</td>
-                            </tr>
-                            <tr>
-                                <td>Company D</td>
-                                <td>NGN 7,500</td>
-                                <td>Product Purchase</td>
-                                <td>2024-08-10</td>
-                            </tr>
+                            {transactions.length > 0 ? (
+                                transactions.map((transaction) => (
+                                    <tr key={transaction.id}>
+                                        <td>MyCube</td>
+                                        <td>{formatCurrency(transaction.amount)}</td>
+                                        <td>{transaction.description}</td>
+                                        <td>{formatDate(transaction.createdAt)}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="4">No transactions available</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
