@@ -5,63 +5,70 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-    const [username, setUsername] = useState('');
-    const [unitBalance, setUnitBalance] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const [userData, setUserData] = useState(null);
+    const [cashWalletBalance, setCashWalletBalance] = useState(null); // New state for cash wallet balance
+    const [transactions, setTransactions] = useState([]); // New state for transactions
+    const email = sessionStorage.getItem('userinfo');
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // Ensure you're using the correct key here
-        const email = localStorage.getItem('email'); // Retrieve email from local storage
-
-        // Redirect to login if no token or email is found
-        if (!token || !email) {
-            navigate('/login');
-            return; // Prevent further execution
-        }
-
-        // Fetch user profile to get username and unit balance
-        const fetchProfile = async () => {
+        // Fetch User Data (profile and balance)
+        const fetchUserData = async () => {
             try {
-                const response = await axios.get(`https://mycubeenergy.onrender.com/api/User/profile?email=${email}`, {
+                const response = await fetch(`https://mycubeenergy.onrender.com/api/User/Kyc/profile?email=${email}`, {
+                    method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}` // Use 'token' in the header
-                    }
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
                 });
 
-                if (response.data) {
-                    // Set username from the API response
-                    if (response.data.username) {
-                        setUsername(response.data.username);
-                    } else {
-                        setError('Username not found');
-                    }
-                    
-                    // Set unit balance from the API response
-                    if (response.data.unitBalance !== undefined) {
-                        setUnitBalance(response.data.unitBalance);
-                    } else {
-                        setError('Unit balance not found');
-                    }
-                } else {
-                    setError('Failed to fetch profile data');
-                }
+                const data = await response.json();
+                setUserData(data.user); // Set user data
+                setCashWalletBalance(data.cashWalletBalance); // Set cash wallet balance separately
             } catch (error) {
-                if (error.response) {
-                    console.error('Error fetching profile:', error.response.data);
-                    setError('Failed to load profile');
-                } else {
-                    console.error('Error fetching profile:', error.message);
-                    setError('Failed to load profile due to network issue');
-                }
-            } finally {
-                setLoading(false); // Stop loading regardless of success or failure
+                console.error('Error fetching user data:', error);
             }
         };
 
-        fetchProfile(); // Call the function to fetch the profile
-    }, [navigate]);
+        // Fetch Transactions Data
+        const fetchTransactions = async () => {
+            try {
+                const response = await fetch(`https://mycubeenergy.onrender.com/api/User/transactions?email=${email}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                setTransactions(data); // Set transactions data
+            } catch (error) {
+                console.error('Error fetching transactions data:', error);
+            }
+        };
+
+        if (email && token) {
+            fetchUserData();
+            fetchTransactions();
+        }
+    }, [email, token]);
+
+    // Function to format number as currency (e.g., NGN)
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('en-NG', {
+            style: 'currency',
+            currency: 'NGN',
+        }).format(value);
+    };
+
+    // Function to format date
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString();
+    };
 
     return (
         <div>
@@ -69,20 +76,21 @@ const Dashboard = () => {
             <div className={styles.dashboardContainer}>
                 <div className={styles.dashboardHeader}>
                     <h4>Dashboard</h4>
-                    <p>Welcome Back {username || 'User'}!</p>
+                    <p>Welcome Back {userData ? userData.fullname : 'User'}!</p> {/* Display the user's fullname */}
                 </div>
                 
                 <div className={styles.dashboardCards}>
                     <div className={styles.dashboardCard}>
                         <h4>Units Balance</h4>
-                        <p>{unitBalance}</p>
+                        <p>{userData ? userData.unitBalance : 'Loading...'}</p>
                         <div className={styles.flowchartPlaceholder}>
                             Flowchart or Image here
                         </div>
                     </div>
                     <div className={styles.dashboardCard}>
                         <h4>Wallet Balance</h4>
-                        <p>NGN 205,000</p>
+                        {/* Display cash wallet balance formatted as currency */}
+                        <p>{cashWalletBalance !== null ? formatCurrency(cashWalletBalance) : 'Loading...'}</p>
                         <div className={styles.flowchartPlaceholder}>
                             Flowchart or Image here
                         </div>
@@ -100,27 +108,32 @@ const Dashboard = () => {
                     <div className={styles.transactionsHeader}>
                         <h4>Transactions</h4>
                     </div>
-                    {loading ? (
-                        <p>Loading transactions...</p>
-                    ) : error ? (
-                        <p>{error}</p>
-                    ) : (
-                        <table className={styles.transactionsTable}>
-                            <thead>
+                    <table className={styles.transactionsTable}>
+                        <thead>
+                            <tr>
+                                <th>Biller Name</th>
+                                <th>Amount</th>
+                                <th>Narration</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transactions.length > 0 ? (
+                                transactions.map((transaction) => (
+                                    <tr key={transaction.id}>
+                                        <td>MyCube</td>
+                                        <td>{formatCurrency(transaction.amount)}</td>
+                                        <td>{transaction.description}</td>
+                                        <td>{formatDate(transaction.createdAt)}</td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <tr>
-                                    <th>Biller Name</th>
-                                    <th>Amount</th>
-                                    <th>Narration</th>
-                                    <th>Date</th>
+                                    <td colSpan="4">No transactions available</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>No transactions available</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    )}
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
