@@ -8,15 +8,15 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-7xl font-bold text-center text-deep-gray mb-8">Frequently Asked Questions</h2>
+    <section className="py-12 bg-gray-100">
+      <div className="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
+        <h2 className="mb-8 text-4xl font-bold text-center sm:text-7xl text-deep-gray">Frequently Asked Questions</h2>
 
         <div className="space-y-4">
           {/* FAQ 1 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(0)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
@@ -32,9 +32,9 @@ const FAQ = () => {
           </div>
 
           {/* FAQ 2 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(1)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
@@ -50,9 +50,9 @@ const FAQ = () => {
           </div>
 
           {/* FAQ 3 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(2)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
@@ -68,9 +68,9 @@ const FAQ = () => {
           </div>
 
           {/* FAQ 4 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(3)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
@@ -86,9 +86,9 @@ const FAQ = () => {
           </div>
 
           {/* FAQ 5 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(4)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
@@ -104,9 +104,9 @@ const FAQ = () => {
           </div>
 
           {/* FAQ 6 */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="p-6 bg-white rounded-lg shadow">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleFAQ(5)}
             >
               <h3 className="text-lg font-semibold text-gray-800">
