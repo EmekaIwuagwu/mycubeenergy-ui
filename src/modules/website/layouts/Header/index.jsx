@@ -4,7 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
+  const { pathname } = location;
+  const isHomePage = pathname === "/";
+  const isServicesPage = pathname === "/services";
+  const isAboutPage = pathname === "/about";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -52,9 +55,11 @@ const Header = () => {
           <li>
             <Link
               to="/services"
-              className={`px-5 py-1.5 rounded-3xl  leading-none ${
-                !isHomePage ? "bg-custom-black/5" : "bg-white/50"
-              }`}
+              className={`px-5 py-1.5 rounded-3xl leading-none ${
+                isServicesPage
+                  ? "bg-deep-green text-mid-green"
+                  : "bg-custom-black/5"
+              } ${isHomePage ? "bg-white/50" : ""}`}
             >
               Services
             </Link>
@@ -71,13 +76,14 @@ const Header = () => {
               </div>
             </div>
           )}
-
           <li>
             <Link
               to="/about"
-              className={`px-5 py-1.5 rounded-3xl  leading-none ${
-                !isHomePage ? "bg-deep-green text-mid-green" : "bg-white/50"
-              }`}
+              className={`px-5 py-1.5 rounded-3xl leading-none ${
+                isAboutPage
+                  ? "bg-deep-green text-mid-green"
+                  : "bg-custom-black/5"
+              } ${isHomePage ? "bg-white/50" : ""}`}
             >
               About
             </Link>
@@ -87,7 +93,7 @@ const Header = () => {
           <li>
             <Link
               to="/login"
-              className={`px-5 py-1.5 rounded-3xl  leading-none ${
+              className={`px-5 py-1.5 rounded-3xl leading-none ${
                 !isHomePage ? "bg-light-green" : "bg-white/50"
               }`}
             >
@@ -97,7 +103,7 @@ const Header = () => {
           <li>
             <Link
               to="/signup"
-              className={`px-5 py-1.5 rounded-3xl  leading-none ${
+              className={`px-5 py-1.5 rounded-3xl leading-none ${
                 !isHomePage ? "bg-custom-orange" : "bg-white/50"
               }`}
             >
@@ -152,8 +158,6 @@ const Header = () => {
                 Login
               </Link>
             </li>
-
-            {/* The Sign up button retains its background color */}
             <li>
               <Link
                 to="/signup"
