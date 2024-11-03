@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import styles from './Dashboard.module.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState(null);
@@ -101,7 +103,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className={styles.transactionsSection}>
                     <div className={styles.transactionsHeader}>
                         <h4>Transactions</h4>

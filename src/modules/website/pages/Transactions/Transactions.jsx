@@ -1,44 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import styles from './Transactions.module.css';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-  const [email, setEmail] = useState('');
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
   const [error, setError] = useState('');
+  const email = sessionStorage.getItem('userinfo');
+  const token = sessionStorage.getItem('token');
 
-  // Simulate fetching transactions on component mount
-  // This could be replaced with a real API call when needed
-  const fetchTransactions = () => {
-    // Simulated data
-    const simulatedTransactions = [
-      {
-        id: 1,
-        billerName: 'Electric Co.',
-        amount: '$100',
-        narration: 'Monthly bill',
-        date: '2024-08-01',
-      },
-      {
-        id: 2,
-        billerName: 'Water Supply',
-        amount: '$50',
-        narration: 'Quarterly bill',
-        date: '2024-08-15',
-      },
-    ];
-    setTransactions(simulatedTransactions);
+  // Fetch transactions based on date range
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(
+        `https://mycubeenergy.onrender.com/api/User/transactions-by-date?email=${email}&from=${from}&to=${to}`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      if (!response.ok) throw new Error('Failed to fetch transactions.');
+
+      const data = await response.json();
+      setTransactions(data); // Set transactions data
+    } catch (error) {
+      console.error('Error fetching transactions data:', error);
+      setError('Unable to fetch transactions. Please try again later.');
+    }
   };
 
-  // Simulate a search function
-  const handleSearch = () => {
-    // For demonstration, we'll use the same data for search
-    fetchTransactions();
+  // Currency format
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+    }).format(value);
+  };
 
-    // Handle search filtering if needed
-    // Here we are just using the simulated data without filtering
+  // Date format
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString();
   };
 
   return (
@@ -50,13 +57,13 @@ const Transactions = () => {
         </div>
         <div className={styles.inputContainer}>
           <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.inputLabel}>Reference Number</label>
+            <label htmlFor="email" className={styles.inputLabel}>Reference Email</label>
             <input
-              type="email"
+              type="text"
               id="email"
               className={styles.dateInput}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email || ''}
+              readOnly
             />
           </div>
           <div className={styles.inputGroup}>
@@ -65,18 +72,18 @@ const Transactions = () => {
               type="date"
               id="from-date"
               className={styles.dateInput}
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="end-date" className={styles.inputLabel}>To Date</label>
+            <label htmlFor="to-date" className={styles.inputLabel}>To Date</label>
             <input
               type="date"
-              id="end-date"
+              id="to-date"
               className={styles.dateInput}
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
             />
           </div>
         </div>
@@ -105,10 +112,10 @@ const Transactions = () => {
               {transactions.length > 0 ? (
                 transactions.map((transaction) => (
                   <tr key={transaction.id}>
-                    <td>{transaction.billerName}</td>
-                    <td>{transaction.amount}</td>
-                    <td>{transaction.narration}</td>
-                    <td>{transaction.date}</td>
+                    <td>{transaction.transactionType}</td>
+                    <td>{formatCurrency(transaction.amount)}</td>
+                    <td>{transaction.description}</td>
+                    <td>{formatDate(transaction.createdAt)}</td>
                   </tr>
                 ))
               ) : (
