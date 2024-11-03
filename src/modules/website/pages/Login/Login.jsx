@@ -1,65 +1,67 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import logo from './logo.png';
-import styles from './Login.module.css'; // Import the CSS Module
+import styles from './Login.module.css';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const login = async (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);
-        
-        // Clear any existing user data in local storage
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
+
+        if (email === '') {
+            alert('Email cannot be empty');
+            setLoading(false);
+            return;
+        }
+
+        if (password === '') {
+            alert('Password cannot be empty');
+            setLoading(false);
+            return;
+        }
 
         try {
-            const response = await axios.post('https://mycubeenergy.onrender.com/api/User/Auth/login', {
-                username,
-                password,
+            const response = await fetch('https://mycubeenergy.onrender.com/api/User/Auth/login', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
             });
 
-            console.log('Response:', response); // Log the response for debugging
+            const responseJson = await response.json();
 
-            if (response.status === 200) {
-                // Store the token and username using localStorage
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('username', username);
-
-                // Navigate to the dashboard on successful login
+            if (responseJson.message === 'Login Successful') {
+                sessionStorage.setItem('userinfo', email); // Store email in sessionStorage
+                sessionStorage.setItem('token', responseJson.token); // Store token in sessionStorage
                 navigate('/dashboard');
-            } else if (response.status === 401) {
-                setError('Invalid username or password.');
             } else {
-                setError('Login failed. Please try again later.');
+                alert(responseJson.message);
             }
         } catch (error) {
-            if (error.response) {
-                console.error('Error Response:', error.response.data); // Log full error response
-                setError('Login failed. Please try again later.');
-            } else {
-                console.error('Error Message:', error.message); // Log error message
-                setError('Login failed. Please check your network and try again.');
-            }
+            console.error('Login error:', error);
+            setError('Login failed. Please check your network and try again.');
         } finally {
             setLoading(false);
         }
     };
-    
+
     return (
         <div className={styles.loginContainer}>
             <div className={styles.left}>
                 <img src={logo} alt="Logo" />
             </div>
             <div className={styles.right}>
-                <form className={styles.form} onSubmit={handleSubmit}>
+                <form className={styles.form} onSubmit={login}>
                     <div className={styles.inputContainer}>
                         <div className={styles.welcome}>
                             <h2>Welcome Back!</h2>
@@ -69,14 +71,14 @@ const Login = () => {
                         {error && <p className={styles.error}>{error}</p>}
 
                         <div className={styles.username}>
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="email">Email</label>
                             <input
-                                type="text"
-                                name="username"
-                                placeholder='Username'
-                                id="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                type="email"
+                                name="email"
+                                placeholder='Email'
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>
