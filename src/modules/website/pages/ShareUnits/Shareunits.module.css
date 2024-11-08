@@ -1,6 +1,142 @@
-.shareunits{
-    margin-left: 250px; /* To account for the sidebar */
+/* Shareunits.module.css */
+
+.shareunits {
+    margin-left: 250px; /* Align content with Sidebar */
     padding: 20px;
     height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.textHeaderTopUp {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.textHeaderTopUp h4 {
+    font-family: 'Karla', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 35.07px;
+    text-align: left;
+}
+
+.dropdownContainer {
+    display: flex;
+    gap: 20px;
+    max-width: 1040px;
+    height: 250px;
+    margin: auto;
+    background-color: #ffffff;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    align-items: center;
+}
+
+.inputGroup {
+    position: relative;
+    flex: 1;
+    max-width: 370px;
+}
+
+.dateInput {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px; /* Space for the dropdown icon */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Karla', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.vectorIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 16px;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdownMenuItem {
+    padding: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.dropdownMenuItem:hover {
     background-color: #f0f0f0;
+}
+
+/* Add responsive adjustments */
+@media (max-width: 768px) {
+    .shareunits {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .dropdownContainer {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .inputGroup {
+        max-width: 100%;
+    }
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.btnshare{
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    margin-left: 950px;
+    margin-top: 30px;
+}
+.all{
+    display: flex;
+    flex-direction: column;
+
 }
