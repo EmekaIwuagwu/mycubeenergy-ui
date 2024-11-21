@@ -24,37 +24,36 @@ const Settings = () => {
     // Function to fetch user profile
     const fetchUserProfile = async () => {
         try {
-          const token = localStorage.getItem('token');
-          if (!token) {
-            throw new Error('No token found');
-          }
-      
-          const response = await axios.get('https://mycubeenergy.onrender.com/api/User/profile', {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'accept': '*/*',
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found');
             }
-          });
-      
-          const { user } = response.data;
-          setFormValues({
-            username: user.username || '',
-            fullName: user.fullname || '',
-            address: user.address || '',
-            city: user.city || '',
-            state: user.state || '',
-            country: user.country || '',
-            email: user.email || '',
-            password: '********',
-            telephone: user.telephone || '',
-            zipcode: user.zipcode || '',
-          });
+
+            const response = await axios.get('https://mycubeenergy.onrender.com/api/User/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'accept': '*/*',
+                }
+            });
+
+            const { user } = response.data;
+            setFormValues({
+                username: user.username || '',
+                fullName: user.fullname || '',
+                address: user.address || '',
+                city: user.city || '',
+                state: user.state || '',
+                country: user.country || '',
+                email: user.email || '',
+                password: '********',
+                telephone: user.telephone || '',
+                zipcode: user.zipcode || '',
+            });
         } catch (err) {
-          setError('Failed to fetch user profile. Please try again later.');
-          console.error('Error:', err.message); // Will show 'Network Error'
+            setError('Failed to fetch user profile. Please try again later.');
+            console.error('Error:', err.message);
         }
-      };
-      
+    };
 
     useEffect(() => {
         fetchUserProfile();
@@ -78,7 +77,7 @@ const Settings = () => {
 
     const handleSaveChanges = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             if (!token) {
                 throw new Error('No token found');
             }
@@ -93,6 +92,9 @@ const Settings = () => {
 
             setSuccess('Profile updated successfully.');
             setIsEditing(false);
+
+            // Clear success message after a delay
+            setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
             setError('Failed to update profile.');
             console.error('Error:', err.response ? err.response.data : err.message);
@@ -101,16 +103,16 @@ const Settings = () => {
 
     const handleDeactivateAccount = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             const userId = formValues.userId; // Assuming userId is included in formValues
-    
+
             if (!token) {
                 throw new Error('No token found');
             }
             if (!userId) {
                 throw new Error('No userId found');
             }
-    
+
             await axios.delete('https://mycubeenergy.onrender.com/api/User/delete-account', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -120,9 +122,9 @@ const Settings = () => {
                     userId: userId,
                 },
             });
-    
+
             setSuccess('Account deactivated successfully.');
-            localStorage.clear(); // Clear all local storage
+            sessionStorage.clear(); // Clear all session storage
             window.location.href = '/login'; // Redirect to login page
         } catch (err) {
             setError('Failed to deactivate account.');
@@ -146,7 +148,7 @@ const Settings = () => {
                         <input
                             type="text"
                             name="fullName"
-                            value={formValues.username}
+                            value={formValues.fullName}
                             onChange={handleChange}
                         />
                     ) : (
