@@ -8,6 +8,9 @@ const Dashboard = () => {
     const [userData, setUserData] = useState(null);
     const [cashWalletBalance, setCashWalletBalance] = useState(null); // New state for cash wallet balance
     const [transactions, setTransactions] = useState([]); // New state for transactions
+    const [currentPage, setCurrentPage] = useState(1); // Current page number
+    const transactionsPerPage = 5; // Transactions per page
+
     const email = sessionStorage.getItem('userinfo');
     const token = sessionStorage.getItem('token');
 
@@ -70,6 +73,16 @@ const Dashboard = () => {
         return new Date(dateString).toLocaleDateString();
     };
 
+    // Pagination logic
+    const indexOfLastTransaction = currentPage * transactionsPerPage;
+    const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+    const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+    const totalPages = Math.ceil(transactions.length / transactionsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <div>
             <Sidebar />
@@ -78,7 +91,7 @@ const Dashboard = () => {
                     <h4>Dashboard</h4>
                     <p>Welcome Back {userData ? userData.fullname : 'User'}!</p> {/* Display the user's fullname */}
                 </div>
-                
+
                 <div className={styles.dashboardCards}>
                     <div className={styles.dashboardCard}>
                         <h4>Units Balance</h4>
@@ -118,8 +131,8 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {transactions.length > 0 ? (
-                                transactions.map((transaction) => (
+                            {currentTransactions.length > 0 ? (
+                                currentTransactions.map((transaction) => (
                                     <tr key={transaction.id}>
                                         <td>MyCube</td>
                                         <td>{formatCurrency(transaction.amount)}</td>
@@ -134,6 +147,19 @@ const Dashboard = () => {
                             )}
                         </tbody>
                     </table>
+                    
+                    {/* Pagination Controls */}
+                    <div className={styles.pagination}>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => handlePageChange(index + 1)}
+                                className={currentPage === index + 1 ? styles.activePage : ''}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
