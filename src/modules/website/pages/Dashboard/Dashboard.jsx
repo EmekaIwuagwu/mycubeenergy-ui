@@ -121,33 +121,36 @@ const Dashboard = () => {
                     <div className={styles.transactionsHeader}>
                         <h4>Transactions</h4>
                     </div>
-                    <table className={styles.transactionsTable}>
-                        <thead>
-                            <tr>
-                                <th>Biller Name</th>
-                                <th>Amount</th>
-                                <th>Narration</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentTransactions.length > 0 ? (
-                                currentTransactions.map((transaction) => (
-                                    <tr key={transaction.id}>
-                                        <td>MyCube</td>
-                                        <td>{formatCurrency(transaction.amount)}</td>
-                                        <td>{transaction.description}</td>
-                                        <td>{formatDate(transaction.createdAt)}</td>
-                                    </tr>
-                                ))
-                            ) : (
+                    <div className={styles.transactionsTableWrapper}>
+                        <table className={styles.transactionsTable}>
+                            <thead>
                                 <tr>
-                                    <td colSpan="4">No transactions available</td>
+                                    <th>Biller Name</th>
+                                    <th>Amount</th>
+                                    <th>Narration</th>
+                                    <th>Date</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
-                    
+                            </thead>
+                            <tbody>
+                                {currentTransactions.length > 0 ? (
+                                    currentTransactions.map((transaction) => (
+                                        <tr key={transaction.id}>
+                                            <td>MyCube</td>
+                                            <td>{formatCurrency(transaction.amount)}</td>
+                                            <td>{transaction.description}</td>
+                                            <td>{formatDate(transaction.createdAt)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4">No transactions available</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+
                     {/* Pagination Controls */}
                     <div className={styles.pagination}>
                         {Array.from({ length: totalPages }, (_, index) => (
